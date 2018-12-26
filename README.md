@@ -102,6 +102,7 @@ Donde:
 * __-it__ Modo interactivo.
 * __mysql -p__: es el comando para entrar a la consola de mysql con el usuario root(si has trabajado con mysql en consola es lo mismo).
 
+
 ```terminal
 $ docker exec -it mysql-saidmlx mysql -p                                      
 Enter password:                                                               
@@ -117,7 +118,9 @@ owners.
                                                                               
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> show databases;                                                        
+
 ```
+
 
 Mostramos las bases de datos creadas y vemos a __demo__ que es valor que le pasamos al proceso en la variable de entorno __MYSQL_DATABASE__
 
@@ -184,7 +187,7 @@ Y ahora subimos la imagen
 $ docker push saidmlx/mysql:withdatabase
 The push refers to repository [docker.io/saidmlx/mysql]
 48994486ea8f: Pushed
-withdatabase: digest: sha256:45a88952d0bf29136031b46608e154ee762c82ab3c37f7fa14e2cdb63fd08cb1 size: 3035
+withdatabase: digest: sha256:00000000000000 size: 3035
 ```
 
 y a partir de aquí la imagen esta disponible para el mundo entero.
@@ -196,13 +199,16 @@ y a partir de aquí la imagen esta disponible para el mundo entero.
 Para probar que todo funciona eliminamos todas las imagenes relacionadas con myql
 
 ```terminal
+
 $ docker rm -f mysql-saidmlx:latest
 $ docker image rmi mysql:saidmlx
 $ docker image rmi saidmlx/mysql:withdatabase
 ```
+
 Lanzamos un proceso Docker pero a la imagen __saidmlx/mysql:withdatabase__ y como no la encuentra en el Host la descarga
 
 ```terminal
+
 $ docker run -d -p 3306:3306 --name mysql-saidmlx -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=demo saidmlx/mysql:withdatabase 
 Unable to find image 'saidmlx/mysql:withdatabase' locally
 withdatabase: Pulling from saidmlx/mysql
@@ -211,11 +217,13 @@ a5a6f2f73cd8: Pull complete
 31c54ab0e6e7: Pull complete
 Digest: sha256:45a88952d0bf29136031b46608e154ee762c82ab3c37f7fa14e2cdb63fd08cb1
 Status: Downloaded newer image for saidmlx/mysql:withdatabase
-ad1cb6c628e13a4256567bc2a39c3ad262c9b1e580899927842f7beae5d74986
+ad1cb6c628e13a4256567bc2a39c3ad262c9b1e58089927842f7beae5d74986
+
 ```
 
+
 Vemos el proceso ejecutándose
-````terminal
+```terminal
 $ docker ps
 CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                               NAMES
 ad1cb6c628e1        saidmlx/mysql:withdatabase   "docker-entrypoint.s…"   4 minutes ago       Up 4 minutes        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql-saidmlx
@@ -235,8 +243,6 @@ Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
 Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> show databases;
 +--------------------+
